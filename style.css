@@ -173,6 +173,15 @@ blockquote {
   font-size: 0.9rem;
 }
 
+.hero-logo {
+  width: 120px;
+  height: auto;
+  margin: 24px auto 32px;
+  display: block;
+  opacity: 0.9;
+}
+
+
 /* CTA */
 .cta {
   display: inline-block;
