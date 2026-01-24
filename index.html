@@ -8,18 +8,34 @@
 </head>
 <body>
 
-<main class="container">
+<header>
+  <div class="brand">Xaily</div>
+  <nav>
+    <button onclick="showSection('home')">Home</button>
+    <button onclick="showSection('about')">About</button>
+    <button onclick="showSection('example')">Example</button>
+    <button onclick="showSection('how')">How it Works</button>
+    <button onclick="showSection('skills')">Skills</button>
+    <button onclick="showSection('mission')">Mission</button>
+    <button onclick="showSection('play')">Play</button>
+  </nav>
+</header>
 
-  <section class="hero">
+<main>
+
+  <section id="home" class="active">
     <h1>Xaily</h1>
-    <p class="tagline">A cryptic deduction experience.</p>
-    <p class="subtext">
+    <p class="subtitle">A cryptic deduction experience.</p>
+
+    <img src="placeholder.jpg" alt="Abstract placeholder" class="hero-image" />
+
+    <p class="lead">
       One carefully written question.<br>
       No trivia. No guessing. Just reasoning.
     </p>
   </section>
 
-  <section>
+  <section id="about">
     <h2>What is Xaily?</h2>
     <p>
       Xaily is a thinking-first game built around deduction, not memory.
@@ -31,7 +47,7 @@
     </p>
   </section>
 
-  <section>
+  <section id="example">
     <h2>Example</h2>
     <blockquote>
       “X is often used as a symbol of genius, even by those unfamiliar with the work itself.
@@ -41,7 +57,7 @@
     <p class="note">You don’t guess. You think.</p>
   </section>
 
-  <section>
+  <section id="how">
     <h2>How it works</h2>
     <ul>
       <li>One global X per day</li>
@@ -52,7 +68,7 @@
     </ul>
   </section>
 
-  <section>
+  <section id="skills">
     <h2>What it improves</h2>
     <ul>
       <li>Logical reasoning</li>
@@ -63,7 +79,7 @@
     </ul>
   </section>
 
-  <section>
+  <section id="mission">
     <h2>Why Xaily exists</h2>
     <p>
       Most digital experiences are built for speed and distraction.
@@ -71,19 +87,26 @@
     </p>
     <p>
       It’s a quiet daily space to think, reflect, and enjoy the process of reasoning —
-      even if you don’t reach the answer.
+      even without certainty or reward.
     </p>
   </section>
 
-  <a class="cta" href="#">
-    ▶ Play on Discord (Coming soon)
-  </a>
-
-  <footer>
-    Built with care for thinkers.
-  </footer>
+  <section id="play">
+    <h2>Play</h2>
+    <p>No accounts. No emails.</p>
+    <a class="cta" href="#">Play on Discord (Coming soon)</a>
+  </section>
 
 </main>
+
+<script>
+  function showSection(id) {
+    document.querySelectorAll('section').forEach(sec => {
+      sec.classList.remove('active');
+    });
+    document.getElementById(id).classList.add('active');
+  }
+</script>
 
 </body>
 </html>
