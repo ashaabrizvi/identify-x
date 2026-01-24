@@ -200,8 +200,12 @@ blockquote {
   }
 }
 
-/* ANIMATION */
-@keyframes fade {
+.reveal {
+  opacity: 0;
+  animation: reveal 0.6s ease forwards;
+}
+
+@keyframes reveal {
   from {
     opacity: 0;
     transform: translateY(6px);
@@ -211,3 +215,17 @@ blockquote {
     transform: translateY(0);
   }
 }
+
+
+/* ANIMATION */
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
