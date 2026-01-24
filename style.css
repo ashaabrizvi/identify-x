@@ -1,62 +1,86 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #0b1020;
+  background: #0a0f1e;
   color: #e5e7eb;
 }
 
-.container {
-  max-width: 680px;
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  border-bottom: 1px solid #1f2937;
+}
+
+.brand {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+nav button {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  margin-left: 16px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+nav button:hover {
+  color: #c7d2fe;
+}
+
+main {
+  max-width: 720px;
   margin: auto;
   padding: 80px 20px;
 }
 
-.hero {
-  text-align: center;
-  margin-bottom: 80px;
+section {
+  display: none;
+  animation: fade 0.4s ease;
+}
+
+section.active {
+  display: block;
 }
 
 h1 {
   font-size: 3rem;
-  font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
-.tagline {
-  font-size: 1.2rem;
+.subtitle {
   color: #c7d2fe;
-  margin-bottom: 20px;
+  margin-bottom: 32px;
 }
 
-.subtext {
+.lead {
   color: #9ca3af;
   line-height: 1.6;
 }
 
-section {
-  margin-bottom: 64px;
+.hero-image {
+  width: 100%;
+  max-height: 260px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 32px;
+  opacity: 0.85;
 }
 
 h2 {
-  font-size: 1.4rem;
   margin-bottom: 16px;
 }
 
 p {
   line-height: 1.7;
   color: #d1d5db;
-}
-
-blockquote {
-  font-style: italic;
-  color: #e5e7eb;
-  border-left: 3px solid #6366f1;
-  padding-left: 16px;
-}
-
-.note {
-  color: #9ca3af;
-  margin-top: 12px;
 }
 
 ul {
@@ -67,25 +91,28 @@ li {
   margin-bottom: 8px;
 }
 
+blockquote {
+  border-left: 3px solid #6366f1;
+  padding-left: 16px;
+  font-style: italic;
+}
+
+.note {
+  color: #9ca3af;
+  margin-top: 12px;
+}
+
 .cta {
-  display: block;
-  margin: 80px auto;
-  text-align: center;
-  padding: 14px;
-  max-width: 320px;
+  display: inline-block;
+  margin-top: 24px;
+  padding: 12px 20px;
   background: #6366f1;
   color: white;
   text-decoration: none;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
-.cta:hover {
-  background: #4f46e5;
-}
-
-footer {
-  text-align: center;
-  color: #6b7280;
-  font-size: 0.9rem;
-  margin-top: 80px;
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
