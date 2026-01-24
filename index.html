@@ -10,7 +10,10 @@
 
 <header>
   <div class="brand">Xaily</div>
-  <nav>
+
+  <div class="menu-icon" onclick="toggleMenu()">☰</div>
+
+  <nav id="navMenu">
     <button onclick="showSection('home')">Home</button>
     <button onclick="showSection('about')">About</button>
     <button onclick="showSection('example')">Example</button>
@@ -30,8 +33,7 @@
       <p class="tagline">A cryptic deduction experience.</p>
 
       <div class="image-placeholder">
-        <!-- Replace later with real image/logo -->
-        <span>Visual space</span>
+        Visual space
       </div>
 
       <p class="lead">
@@ -107,7 +109,7 @@
       </p>
       <p>
         It’s a quiet space to think, reflect, and enjoy the process of reasoning —
-        without noise, pressure, or shallow engagement.
+        without noise or pressure.
       </p>
     </div>
   </section>
@@ -124,12 +126,42 @@
 </main>
 
 <script>
+  const sections = ['home', 'about', 'example', 'how', 'skills', 'mission', 'play'];
+  let currentIndex = 0;
+
   function showSection(id) {
+    localStorage.setItem('xaily-section', id);
     document.querySelectorAll('.section').forEach(sec => {
       sec.classList.remove('active');
     });
     document.getElementById(id).classList.add('active');
+    currentIndex = sections.indexOf(id);
+    closeMenu();
   }
+
+  function toggleMenu() {
+    document.getElementById('navMenu').classList.toggle('open');
+  }
+
+  function closeMenu() {
+    document.getElementById('navMenu').classList.remove('open');
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') {
+      currentIndex = (currentIndex + 1) % sections.length;
+      showSection(sections[currentIndex]);
+    }
+    if (e.key === 'ArrowLeft') {
+      currentIndex = (currentIndex - 1 + sections.length) % sections.length;
+      showSection(sections[currentIndex]);
+    }
+  });
+
+  window.onload = () => {
+    const saved = localStorage.getItem('xaily-section') || 'home';
+    showSection(saved);
+  };
 </script>
 
 </body>
