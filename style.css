@@ -26,10 +26,25 @@ header {
 }
 
 .brand {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
   font-size: 1.1rem;
   font-weight: 600;
   letter-spacing: 0.5px;
 }
+
+.brand img {
+  height: 28px;
+  width: auto;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.brand img:hover {
+  opacity: 1;
+}
+
 
 nav {
   display: flex;
