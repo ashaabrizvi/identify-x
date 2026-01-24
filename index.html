@@ -1,36 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Xaily</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xaily</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-<header class="topbar">
-  <div class="logo">Xaily</div>
-  <nav class="nav">
-    <button onclick="go('home')">Home</button>
-    <button onclick="go('about')">About</button>
-    <button onclick="go('example')">Example</button>
-    <button onclick="go('how')">How</button>
-    <button onclick="go('skills')">Skills</button>
-    <button onclick="go('mission')">Mission</button>
-    <button onclick="go('play')">Play</button>
+<header>
+  <div class="brand">Xaily</div>
+  <nav>
+    <button onclick="showSection('home')">Home</button>
+    <button onclick="showSection('about')">About</button>
+    <button onclick="showSection('example')">Example</button>
+    <button onclick="showSection('how')">How</button>
+    <button onclick="showSection('skills')">Skills</button>
+    <button onclick="showSection('mission')">Mission</button>
+    <button onclick="showSection('play')" class="play-btn">Play</button>
   </nav>
 </header>
 
-<main class="viewport">
+<main>
 
-  <section id="home" class="page active">
+  <!-- HOME -->
+  <section id="home" class="section active">
     <div class="center">
       <h1>Xaily</h1>
-      <p class="tag">A cryptic deduction experience.</p>
+      <p class="tagline">A cryptic deduction experience.</p>
 
-      <div class="art">
-        <img src="https://images.unsplash.com/photo-1548095115-45697e6f5c23?auto=format&fit=crop&w=1200&q=80">
+      <div class="image-placeholder">
+        <!-- Replace later with real image/logo -->
+        <span>Visual space</span>
       </div>
 
       <p class="lead">
@@ -40,93 +41,95 @@
     </div>
   </section>
 
-  <section id="about" class="page">
-    <div class="content">
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <div class="center narrow">
       <h2>What is Xaily?</h2>
       <p>
-        Xaily is a thinking-first deduction game.  
-        It’s built around reasoning, not memory.
+        Xaily is a thinking-first experience built around deduction, not memory.
+        Each day, you’re presented with a single cryptic question — the same one for everyone.
       </p>
       <p>
-        Each day, one cryptic question is released — the same one for everyone.
-        No options. No shortcuts. No noise.
+        There are no options, no shortcuts, and no pressure.
+        Only clues that reward patience and reasoning.
       </p>
     </div>
   </section>
 
-  <section id="example" class="page">
-    <div class="content">
+  <!-- EXAMPLE -->
+  <section id="example" class="section">
+    <div class="center narrow">
       <h2>Example</h2>
-      <div class="card">
-        <p>
-          “X is often used as a symbol of genius, even by those unfamiliar with the work itself.
-          During their lifetime, recognition was limited.
-          Their ideas quietly reshaped how we understand reality.”
-        </p>
-      </div>
+      <blockquote>
+        “X is often used as a symbol of genius, even by those unfamiliar with the work itself.
+        During their lifetime, recognition was limited.
+        Their ideas quietly reshaped how we understand reality.”
+      </blockquote>
       <p class="muted">You don’t guess. You think.</p>
     </div>
   </section>
 
-  <section id="how" class="page">
-    <div class="content">
+  <!-- HOW -->
+  <section id="how" class="section">
+    <div class="center narrow">
       <h2>How it works</h2>
       <ul>
         <li>One global X per day</li>
         <li>Same question for everyone</li>
         <li>Clues revealed gradually</li>
-        <li>No timers</li>
-        <li>No pressure</li>
-        <li>Free, always</li>
+        <li>No time limits or pressure</li>
+        <li>Free to play, always</li>
       </ul>
     </div>
   </section>
 
-  <section id="skills" class="page">
-    <div class="content">
-      <h2>What it builds</h2>
+  <!-- SKILLS -->
+  <section id="skills" class="section">
+    <div class="center narrow">
+      <h2>What it improves</h2>
       <ul>
         <li>Logical reasoning</li>
         <li>Pattern recognition</li>
-        <li>Deep focus</li>
-        <li>Interpretive thinking</li>
+        <li>Reading between the lines</li>
         <li>Intellectual patience</li>
+        <li>Focused thinking</li>
       </ul>
     </div>
   </section>
 
-  <section id="mission" class="page">
-    <div class="content">
+  <!-- MISSION -->
+  <section id="mission" class="section">
+    <div class="center narrow">
       <h2>Why Xaily exists</h2>
       <p>
         Most digital experiences are built for speed and distraction.
+        Xaily exists to slow things down.
       </p>
       <p>
-        Xaily is built for stillness, depth, and thought.
-      </p>
-      <p>
-        It’s a quiet place for people who enjoy thinking for its own sake.
+        It’s a quiet space to think, reflect, and enjoy the process of reasoning —
+        without noise, pressure, or shallow engagement.
       </p>
     </div>
   </section>
 
-  <section id="play" class="page">
-    <div class="content">
+  <!-- PLAY -->
+  <section id="play" class="section">
+    <div class="center narrow">
       <h2>Play</h2>
-      <p>No accounts. No emails. No noise.</p>
-      <a class="play-btn" href="#">Play on Discord</a>
+      <p class="muted">No accounts. No emails. Just play.</p>
+      <a class="cta" href="#">Play on Discord (Coming soon)</a>
     </div>
   </section>
 
 </main>
 
 <script>
-function go(id){
-  document.querySelectorAll('.page').forEach(p=>{
-    p.classList.remove('active');
-  });
-  document.getElementById(id).classList.add('active');
-}
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(sec => {
+      sec.classList.remove('active');
+    });
+    document.getElementById(id).classList.add('active');
+  }
 </script>
 
 </body>
