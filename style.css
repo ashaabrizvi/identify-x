@@ -29,10 +29,20 @@ header {
   display: flex;
   align-items: center;
   cursor: pointer;
-  font-size: 1.1rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
 }
+
+.nav-logo {
+  height: 36px;
+  width: auto;
+  opacity: 0.95;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.nav-logo:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
 
 .brand img {
   height: 28px;
