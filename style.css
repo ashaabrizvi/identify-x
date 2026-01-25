@@ -184,12 +184,13 @@ blockquote {
 }
 
 .hero-logo {
-  width: 120px;
+  width: 140px;
   height: auto;
-  margin: 24px auto 32px;
+  margin: 32px auto 28px;
   display: block;
-  opacity: 0.9;
+  opacity: 0.95;
 }
+
 
 
 /* CTA */
