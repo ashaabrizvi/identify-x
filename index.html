@@ -3,194 +3,579 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Xaily</title>
+  <title>Xaily — Identify X</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="manifest" href="manifest.json">
 </head>
-
 <body>
 
-<header>
-  <div class="brand" onclick="showSection('home')">
-  <img src="logo.png" alt="Xaily logo" class="nav-logo">
-  </div>
+<!-- ─── SPLASH SCREEN ─── -->
+<div id="splash" class="screen active">
+  <header class="top-bar">
+    <img src="logo.png" alt="Xaily" class="top-logo">
+    <button class="icon-btn" id="how-btn" aria-label="How to play">?</button>
+  </header>
 
-  <div class="menu-icon" onclick="toggleMenu()">☰</div>
+  <div class="splash-body">
+    <img src="logo.png" alt="Xaily" class="splash-logo">
+    <h1>Xaily</h1>
+    <p class="splash-tagline">One X. One day. Pure deduction.</p>
 
-  <nav id="navMenu">
-    <button onclick="showSection('home')">Home</button>
-    <button onclick="showSection('about')">About</button>
-    <button onclick="showSection('example')">Example</button>
-    <button onclick="showSection('how')">How</button>
-    <button onclick="showSection('skills')">Skills</button>
-    <button onclick="showSection('mission')">Mission</button>
-    <button onclick="showSection('play')" class="play-btn">Play</button>
-  </nav>
-</header>
-
-<main>
-
-<!-- HOME -->
-<section id="home" class="section active">
-  <div class="center">
-    <h1 class="reveal">Xaily</h1>
-    <p class="tagline reveal">A cryptic deduction experience.</p>
-
-    <img src="logo.png" alt="Xaily logo" class="hero-logo reveal">
-
-    <p class="lead reveal">
-      One carefully crafted question.<br>
-      No trivia. No guessing. Just reasoning.
-    </p>
-
-    <p class="muted reveal">
-      Built with ❤️ for those who enjoy thinking
-    </p>
-  </div>
-</section>
-
-
-  <!-- ABOUT -->
-  <section id="about" class="section">
-    <div class="center narrow">
-      <h2 class="reveal">What is Xaily?</h2>
-      <p class="reveal">
-        Xaily is a thinking first experience built around deduction, not memory.
-        Each day, you are presented with a single cryptic question, the same one for everyone.
-      </p>
-      <p class="reveal">
-        There are no options, no shortcuts, and no pressure.
-        Only clues that reward patience and reasoning.
-      </p>
+    <div id="splash-streak" class="streak-pill" hidden>
+      <span class="streak-fire">🔥</span>
+      <span id="splash-streak-count"></span>
+      <span class="streak-label">day streak</span>
     </div>
-  </section>
 
-  <!-- EXAMPLES -->
-<section id="example" class="section">
-  <div class="center narrow">
-    <h2 class="reveal">EXAMPLES</h2>
+    <button id="play-btn" class="primary-btn">Play Today's X</button>
 
-    <blockquote class="reveal">
-      X is a political and economic system in which the means of production are owned collectively rather than privately.<br>
-      It aims to reduce class distinctions and promote equality.<br>
-      Various countries have attempted to implement X with differing results throughout history.
-    </blockquote>
+    <div id="already-played" class="already-played" hidden>
+      <div class="result-summary-mini" id="mini-result"></div>
+      <p class="already-text">You've played today. Come back tomorrow.</p>
+      <button id="review-btn" class="ghost-btn">Review today's answer</button>
+    </div>
 
-    <blockquote class="reveal">
-      X is a device that converts mechanical energy into electrical energy.<br>
-      It operates on the principle of electromagnetic induction.<br>
-      Power plants around the world rely on X to supply electricity to cities and industries.
-    </blockquote>
-
-    <blockquote class="reveal">
-      X is a treaty that formally ended the First World War.<br>
-      It imposed heavy penalties on Germany and reshaped national boundaries in Europe.<br>
-      Many historians consider X a contributing factor to later global conflict.
-    </blockquote>
-
-    <p class="muted reveal">You do not guess. You think.</p>
+    <p class="splash-meta">Free. No account. No time limit.</p>
   </div>
-</section>
+</div>
 
-
-  <!-- HOW -->
-  <section id="how" class="section">
-    <div class="center narrow">
-      <h2 class="reveal">How it works</h2>
-      <ul class="reveal">
-        <li>One global X per day</li>
-        <li>Same question for everyone</li>
-        <li>Clues revealed gradually</li>
-        <li>No time limits or pressure</li>
-        <li>Free to play, always</li>
-      </ul>
+<!-- ─── HOW TO PLAY MODAL ─── -->
+<div id="how-modal" class="modal-overlay" hidden>
+  <div class="modal">
+    <button class="modal-close" id="close-how">✕</button>
+    <h2>How to play</h2>
+    <ul class="how-list">
+      <li><span class="how-num">1</span>Read the clue and figure out what X is.</li>
+      <li><span class="how-num">2</span>Type your answer and hit Submit.</li>
+      <li><span class="how-num">3</span>Need a hint? Reveal the next clue — but it costs a point.</li>
+      <li><span class="how-num">4</span>Score 3 points on clue 1, 2 on clue 2, 1 on clue 3.</li>
+      <li><span class="how-num">5</span>One X per day. Same question for everyone.</li>
+    </ul>
+    <div class="how-score-legend">
+      <div class="score-demo"><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span> Got it first try</div>
+      <div class="score-demo"><span class="dot filled"></span><span class="dot filled"></span><span class="dot empty"></span> Needed a hint</div>
+      <div class="score-demo"><span class="dot filled"></span><span class="dot empty"></span><span class="dot empty"></span> Down to the wire</div>
     </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section id="skills" class="section">
-    <div class="center narrow">
-      <h2 class="reveal">What it improves</h2>
-      <ul class="reveal">
-        <li>Logical reasoning</li>
-        <li>Pattern recognition</li>
-        <li>Reading between the lines</li>
-        <li>Intellectual patience</li>
-        <li>Focused thinking</li>
-      </ul>
-    </div>
-  </section>
-
-<!-- MISSION -->
-<section id="mission" class="section">
-  <div class="center narrow">
-    <h2 class="reveal">Why Xaily exists</h2>
-
-    <p class="reveal">
-      Most digital experiences are designed for speed, stimulation, and constant reaction.
-      Xaily exists to slow that rhythm down.
-    </p>
-
-    <p class="reveal">
-      It offers a quiet space to think clearly, reflect carefully, and engage with ideas
-      through reasoning rather than urgency.
-    </p>
   </div>
-</section>
+</div>
 
-
-  <!-- PLAY -->
-  <section id="play" class="section">
-    <div class="center narrow">
-      <h2 class="reveal">Play</h2>
-      <p class="muted reveal">No accounts. No emails. Just play.</p>
-      <a class="cta reveal" href="#">Play on Discord (Coming soon)</a>
+<!-- ─── GAME SCREEN ─── -->
+<div id="game" class="screen">
+  <header class="top-bar">
+    <img src="logo.png" alt="Xaily" class="top-logo" id="game-logo">
+    <div class="game-top-right">
+      <div class="score-dots" id="score-dots">
+        <span class="dot filled" id="dot-1"></span>
+        <span class="dot filled" id="dot-2"></span>
+        <span class="dot filled" id="dot-3"></span>
+      </div>
+      <div id="game-streak" class="streak-mini" hidden>
+        <span>🔥</span><span id="game-streak-count"></span>
+      </div>
     </div>
-  </section>
+  </header>
 
-</main>
+  <div class="game-body">
+    <div class="category-row">
+      <span class="category-badge" id="category-badge"></span>
+      <span class="clue-counter" id="clue-counter">Clue 1 of 3</span>
+    </div>
 
+    <div class="clues-area" id="clues-area">
+      <!-- clue cards injected here -->
+    </div>
+
+    <div class="input-area" id="input-area">
+      <div class="input-wrap">
+        <input
+          type="text"
+          id="answer-input"
+          placeholder="What is X?"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="none"
+          spellcheck="false"
+        />
+        <button id="submit-btn" class="submit-btn">Submit</button>
+      </div>
+      <div id="feedback" class="feedback" hidden></div>
+      <button id="reveal-btn" class="reveal-btn">
+        Reveal clue <span id="next-clue-num">2</span>
+        <span class="cost-badge">−1 pt</span>
+      </button>
+    </div>
+
+    <div class="give-up-row" id="give-up-row" hidden>
+      <button id="giveup-btn" class="giveup-btn">Give up — show answer</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── RESULT SCREEN ─── -->
+<div id="result" class="screen">
+  <header class="top-bar">
+    <img src="logo.png" alt="Xaily" class="top-logo">
+    <button class="icon-btn" id="result-how-btn" aria-label="How to play">?</button>
+  </header>
+
+  <div class="result-body">
+    <div class="result-icon" id="result-icon"></div>
+
+    <div class="result-score-dots" id="result-dots">
+      <span class="dot" id="rdot-1"></span>
+      <span class="dot" id="rdot-2"></span>
+      <span class="dot" id="rdot-3"></span>
+    </div>
+
+    <h2 class="result-title" id="result-title"></h2>
+    <p class="result-subtitle" id="result-subtitle"></p>
+
+    <div class="answer-card" id="answer-card">
+      <div class="answer-label">The answer was</div>
+      <div class="answer-text" id="answer-text"></div>
+      <div class="answer-explanation" id="answer-explanation"></div>
+    </div>
+
+    <div class="result-actions">
+      <button id="share-btn" class="primary-btn share-btn">Share result</button>
+      <div id="share-toast" class="share-toast" hidden>Copied to clipboard!</div>
+    </div>
+
+    <div class="streak-result" id="streak-result" hidden>
+      <span class="streak-fire">🔥</span>
+      <span id="streak-result-text"></span>
+    </div>
+
+    <p class="next-day-text">A new X arrives at midnight.</p>
+  </div>
+</div>
+
+<!-- ─── SCRIPTS ─── -->
+<script src="questions.js"></script>
 <script>
-  const sections = ['home', 'about', 'example', 'how', 'skills', 'mission', 'play'];
-  let currentIndex = 0;
+// ──────────────────────────────────────────────
+// STATE
+// ──────────────────────────────────────────────
+const STATE_KEY = 'xaily-state-v1';
 
-  function showSection(id) {
-    localStorage.setItem('xaily-section', id);
-    document.querySelectorAll('.section').forEach(sec => {
-      sec.classList.remove('active');
-    });
-    document.getElementById(id).classList.add('active');
-    currentIndex = sections.indexOf(id);
-    closeMenu();
-  }
+function loadState() {
+  try { return JSON.parse(localStorage.getItem(STATE_KEY)) || {}; }
+  catch { return {}; }
+}
 
-  function toggleMenu() {
-    document.getElementById('navMenu').classList.toggle('open');
-  }
+function saveState(s) {
+  localStorage.setItem(STATE_KEY, JSON.stringify(s));
+}
 
-  function closeMenu() {
-    document.getElementById('navMenu').classList.remove('open');
-  }
+function todayStr() {
+  return new Date().toISOString().slice(0, 10);
+}
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') {
-      currentIndex = (currentIndex + 1) % sections.length;
-      showSection(sections[currentIndex]);
+// ──────────────────────────────────────────────
+// QUESTION SELECTION
+// ──────────────────────────────────────────────
+function getTodayQuestion() {
+  const epoch = new Date('2026-01-01T00:00:00Z');
+  const now = new Date();
+  const today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+  const days = Math.floor((today - epoch.getTime()) / 86400000);
+  const idx = ((days % QUESTIONS.length) + QUESTIONS.length) % QUESTIONS.length;
+  return QUESTIONS[idx];
+}
+
+// ──────────────────────────────────────────────
+// ANSWER CHECKING
+// ──────────────────────────────────────────────
+function normalize(s) {
+  return s.toLowerCase().trim().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ');
+}
+
+function checkAnswer(input, question) {
+  const n = normalize(input);
+  if (!n) return false;
+  if (n === normalize(question.answer)) return true;
+  if (question.aliases) {
+    for (const a of question.aliases) {
+      if (n === normalize(a)) return true;
     }
-    if (e.key === 'ArrowLeft') {
-      currentIndex = (currentIndex - 1 + sections.length) % sections.length;
-      showSection(sections[currentIndex]);
-    }
-  });
+  }
+  return false;
+}
 
-  window.onload = () => {
-    const saved = localStorage.getItem('xaily-section') || 'home';
-    showSection(saved);
+// ──────────────────────────────────────────────
+// GAME STATE
+// ──────────────────────────────────────────────
+let question = null;
+let cluesRevealed = 1;  // 1, 2, or 3
+let gameOver = false;
+
+// ──────────────────────────────────────────────
+// SCREEN ROUTING
+// ──────────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ──────────────────────────────────────────────
+// STREAK LOGIC
+// ──────────────────────────────────────────────
+function getStreak() {
+  const s = loadState();
+  return s.streak || 0;
+}
+
+function updateStreak(won) {
+  const s = loadState();
+  const today = todayStr();
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yd = yesterday.toISOString().slice(0, 10);
+
+  if (won) {
+    if (s.lastStreakDate === yd) {
+      s.streak = (s.streak || 0) + 1;
+    } else if (s.lastStreakDate !== today) {
+      s.streak = 1;
+    }
+    s.lastStreakDate = today;
+  }
+  saveState(s);
+  return s.streak || 0;
+}
+
+// ──────────────────────────────────────────────
+// RENDER SPLASH
+// ──────────────────────────────────────────────
+function renderSplash() {
+  const s = loadState();
+  const streak = s.streak || 0;
+
+  // Show streak
+  if (streak > 0) {
+    document.getElementById('splash-streak').hidden = false;
+    document.getElementById('splash-streak-count').textContent = streak;
+  }
+
+  // Check if already played today
+  if (s.lastPlayed === todayStr() && s.todayResult) {
+    document.getElementById('play-btn').hidden = true;
+    document.getElementById('already-played').hidden = false;
+
+    const r = s.todayResult;
+    const mini = document.getElementById('mini-result');
+    mini.innerHTML = scoreDots(r.score, true);
+  }
+}
+
+function scoreDots(score, mini) {
+  let html = '<div class="score-dots' + (mini ? ' score-dots-large' : '') + '">';
+  for (let i = 3; i >= 1; i--) {
+    html += `<span class="dot ${i <= score ? 'filled' : 'empty'}"></span>`;
+  }
+  html += '</div>';
+  return html;
+}
+
+// ──────────────────────────────────────────────
+// START GAME
+// ──────────────────────────────────────────────
+function startGame() {
+  question = getTodayQuestion();
+  cluesRevealed = 1;
+  gameOver = false;
+
+  // Category & counter
+  document.getElementById('category-badge').textContent = question.category;
+  updateClueCounter();
+  updateScoreDots();
+  updateRevealBtn();
+
+  // Show streak in header
+  const streak = getStreak();
+  if (streak > 0) {
+    document.getElementById('game-streak').hidden = false;
+    document.getElementById('game-streak-count').textContent = streak;
+  }
+
+  // Render first clue
+  const area = document.getElementById('clues-area');
+  area.innerHTML = '';
+  appendClue(question.clues[0], 1);
+
+  // Reset input
+  document.getElementById('answer-input').value = '';
+  document.getElementById('feedback').hidden = true;
+  document.getElementById('give-up-row').hidden = true;
+  document.getElementById('input-area').hidden = false;
+
+  showScreen('game');
+  setTimeout(() => document.getElementById('answer-input').focus(), 300);
+}
+
+function appendClue(text, num) {
+  const area = document.getElementById('clues-area');
+  const card = document.createElement('div');
+  card.className = 'clue-card';
+  card.setAttribute('data-clue', num);
+  card.innerHTML = `<span class="clue-num-label">Clue ${num}</span><p class="clue-text">${text}</p>`;
+  area.appendChild(card);
+  // animate in
+  requestAnimationFrame(() => card.classList.add('clue-visible'));
+}
+
+function updateClueCounter() {
+  document.getElementById('clue-counter').textContent = `Clue ${cluesRevealed} of 3`;
+}
+
+function updateScoreDots() {
+  const score = 4 - cluesRevealed; // 3, 2, or 1
+  document.getElementById('dot-1').className = 'dot ' + (score >= 1 ? 'filled' : 'empty');
+  document.getElementById('dot-2').className = 'dot ' + (score >= 2 ? 'filled' : 'empty');
+  document.getElementById('dot-3').className = 'dot ' + (score >= 3 ? 'filled' : 'empty');
+}
+
+function updateRevealBtn() {
+  const btn = document.getElementById('reveal-btn');
+  const next = cluesRevealed + 1;
+  document.getElementById('next-clue-num').textContent = next;
+
+  if (cluesRevealed >= 3) {
+    btn.hidden = true;
+    document.getElementById('give-up-row').hidden = false;
+  } else {
+    btn.hidden = false;
+    document.getElementById('give-up-row').hidden = true;
+  }
+}
+
+// ──────────────────────────────────────────────
+// SUBMIT ANSWER
+// ──────────────────────────────────────────────
+function submitAnswer() {
+  if (gameOver) return;
+  const input = document.getElementById('answer-input');
+  const val = input.value.trim();
+  if (!val) return;
+
+  const feedback = document.getElementById('feedback');
+
+  if (checkAnswer(val, question)) {
+    const score = 4 - cluesRevealed; // 3, 2, or 1
+    handleWin(score);
+  } else {
+    // Wrong answer feedback
+    feedback.hidden = false;
+    feedback.className = 'feedback wrong';
+    feedback.textContent = getWrongFeedback();
+    input.classList.add('shake');
+    input.addEventListener('animationend', () => input.classList.remove('shake'), { once: true });
+    input.value = '';
+    input.focus();
+  }
+}
+
+function getWrongFeedback() {
+  const msgs = [
+    'Not quite. Think deeper.',
+    'Keep reasoning.',
+    'Not that. Try again.',
+    'Close? Think broader.',
+    'Not yet. Read the clues again.',
+  ];
+  return msgs[Math.floor(Math.random() * msgs.length)];
+}
+
+// ──────────────────────────────────────────────
+// WIN / LOSE
+// ──────────────────────────────────────────────
+function handleWin(score) {
+  gameOver = true;
+  const streak = updateStreak(true);
+  saveResult(score);
+  showResult(true, score, streak);
+}
+
+function handleGiveUp() {
+  gameOver = true;
+  updateStreak(false);
+  saveResult(0);
+  showResult(false, 0, getStreak());
+}
+
+function saveResult(score) {
+  const s = loadState();
+  s.lastPlayed = todayStr();
+  s.todayResult = { score, questionId: question.id };
+  if (score === 0) {
+    // streak broken if giving up — handled separately
+  }
+  saveState(s);
+}
+
+// ──────────────────────────────────────────────
+// REVEAL NEXT CLUE
+// ──────────────────────────────────────────────
+function revealNextClue() {
+  if (cluesRevealed >= 3) return;
+  cluesRevealed++;
+  appendClue(question.clues[cluesRevealed - 1], cluesRevealed);
+  updateClueCounter();
+  updateScoreDots();
+  updateRevealBtn();
+
+  // Clear wrong feedback
+  const feedback = document.getElementById('feedback');
+  feedback.hidden = true;
+
+  document.getElementById('answer-input').value = '';
+  document.getElementById('answer-input').focus();
+}
+
+// ──────────────────────────────────────────────
+// SHOW RESULT
+// ──────────────────────────────────────────────
+function showResult(won, score, streak) {
+  const icons = { 3: '✦', 2: '◈', 1: '◇', 0: '○' };
+  const titles = {
+    3: 'First light.',
+    2: 'Sharp mind.',
+    1: 'You got there.',
+    0: 'Better luck tomorrow.'
   };
+  const subtitles = {
+    3: 'Identified on the first clue.',
+    2: 'Identified on the second clue.',
+    1: 'Identified on the third clue.',
+    0: 'The answer eluded you today.'
+  };
+
+  document.getElementById('result-icon').textContent = icons[score] || '○';
+  document.getElementById('result-icon').className = 'result-icon ' + (won ? 'won' : 'lost');
+  document.getElementById('result-title').textContent = titles[score];
+  document.getElementById('result-subtitle').textContent = subtitles[score];
+
+  // Score dots
+  for (let i = 1; i <= 3; i++) {
+    document.getElementById('rdot-' + i).className = 'dot ' + (i <= score ? 'filled' : 'empty');
+  }
+
+  // Answer card
+  const displayAnswer = question.answer.replace(/\b\w/g, c => c.toUpperCase());
+  document.getElementById('answer-text').textContent = displayAnswer;
+  document.getElementById('answer-explanation').textContent = question.explanation;
+
+  // Streak
+  if (won && streak > 0) {
+    const el = document.getElementById('streak-result');
+    el.hidden = false;
+    document.getElementById('streak-result-text').textContent =
+      streak === 1 ? 'Streak started!' : `${streak} day streak!`;
+  }
+
+  showScreen('result');
+}
+
+// ──────────────────────────────────────────────
+// SHARE
+// ──────────────────────────────────────────────
+function buildShareText(score) {
+  const dots = ['○', '◇', '◈', '✦'];
+  const dot = (score >= 1 ? '●' : '○');
+  const lines = [
+    `Xaily — Identify X`,
+    `Score: ${['✕', '◇', '◈', '✦'][score]}  (${score}/3)`,
+    '',
+    `${score >= 3 ? '●' : '○'}${score >= 2 ? '●' : '○'}${score >= 1 ? '●' : '○'}`,
+    '',
+    `play.xaily.com`
+  ];
+  return lines.join('\n');
+}
+
+function shareResult() {
+  const s = loadState();
+  const score = s.todayResult ? s.todayResult.score : 0;
+  const text = buildShareText(score);
+
+  const btn = document.getElementById('share-btn');
+  const toast = document.getElementById('share-toast');
+
+  if (navigator.share) {
+    navigator.share({ text }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(text).then(() => {
+      toast.hidden = false;
+      setTimeout(() => toast.hidden = true, 2200);
+    }).catch(() => {
+      // fallback: select a temp textarea
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      toast.hidden = false;
+      setTimeout(() => toast.hidden = true, 2200);
+    });
+  }
+}
+
+// ──────────────────────────────────────────────
+// HOW TO PLAY MODAL
+// ──────────────────────────────────────────────
+function openHow() {
+  document.getElementById('how-modal').hidden = false;
+}
+function closeHow() {
+  document.getElementById('how-modal').hidden = true;
+}
+
+// ──────────────────────────────────────────────
+// KEYBOARD
+// ──────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !gameOver) {
+    const active = document.querySelector('.screen.active');
+    if (active && active.id === 'game') {
+      submitAnswer();
+    }
+  }
+  if (e.key === 'Escape') closeHow();
+});
+
+// ──────────────────────────────────────────────
+// EVENTS
+// ──────────────────────────────────────────────
+document.getElementById('play-btn').addEventListener('click', startGame);
+document.getElementById('review-btn').addEventListener('click', () => {
+  const s = loadState();
+  question = getTodayQuestion();
+  const score = s.todayResult ? s.todayResult.score : 0;
+  const streak = s.streak || 0;
+  showResult(score > 0, score, streak);
+});
+document.getElementById('submit-btn').addEventListener('click', submitAnswer);
+document.getElementById('reveal-btn').addEventListener('click', revealNextClue);
+document.getElementById('giveup-btn').addEventListener('click', handleGiveUp);
+document.getElementById('share-btn').addEventListener('click', shareResult);
+document.getElementById('how-btn').addEventListener('click', openHow);
+document.getElementById('result-how-btn').addEventListener('click', openHow);
+document.getElementById('close-how').addEventListener('click', closeHow);
+document.getElementById('how-modal').addEventListener('click', e => {
+  if (e.target.id === 'how-modal') closeHow();
+});
+document.getElementById('game-logo').addEventListener('click', () => showScreen('splash'));
+
+// ──────────────────────────────────────────────
+// INIT
+// ──────────────────────────────────────────────
+renderSplash();
 </script>
+
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js');
