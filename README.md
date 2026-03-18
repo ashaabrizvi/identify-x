@@ -31,7 +31,7 @@ Each day, everyone gets the same question. Three clues describe something — a 
 
 ## Play
 
-Coming soon at a public URL.
+**[https://ashaabrizvi.github.io/identify-x/](https://ashaabrizvi.github.io/identify-x/)**
 
 ## Stack
 
