@@ -11,33 +11,25 @@
 </head>
 <body>
 
-<!-- ─── SPLASH SCREEN ─── -->
-<div id="splash" class="screen active">
-  <header class="top-bar">
-    <img src="logo.png" alt="Xaily" class="top-logo">
-    <button class="icon-btn" id="how-btn" aria-label="How to play">?</button>
-  </header>
-
-  <div class="splash-body">
-    <img src="logo.png" alt="Xaily" class="splash-logo">
-    <h1>Xaily</h1>
-    <p class="splash-tagline">One X. One day. Pure deduction.</p>
-
-    <div id="splash-streak" class="streak-pill" hidden>
-      <span class="streak-fire">🔥</span>
-      <span id="splash-streak-count"></span>
-      <span class="streak-label">day streak</span>
+<!-- ─── LOGIN MODAL ─── -->
+<div id="login-modal" class="modal-overlay" hidden>
+  <div class="modal login-modal-box">
+    <h2>What's your name?</h2>
+    <p class="modal-sub">Your display name appears on the leaderboard.</p>
+    <input
+      type="text"
+      id="username-input"
+      class="name-input"
+      placeholder="Enter your name…"
+      maxlength="20"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="words"
+    />
+    <div class="login-actions">
+      <button id="save-username-btn" class="primary-btn">Save name</button>
+      <button id="skip-login-btn" class="ghost-btn">Play anonymously</button>
     </div>
-
-    <button id="play-btn" class="primary-btn">Play Today's X</button>
-
-    <div id="already-played" class="already-played" hidden>
-      <div class="result-summary-mini" id="mini-result"></div>
-      <p class="already-text">You've played today. Come back tomorrow.</p>
-      <button id="review-btn" class="ghost-btn">Review today's answer</button>
-    </div>
-
-    <p class="splash-meta">Free. No account. No time limit.</p>
   </div>
 </div>
 
@@ -51,7 +43,7 @@
       <li><span class="how-num">2</span>Type your answer and hit Submit.</li>
       <li><span class="how-num">3</span>Need a hint? Reveal the next clue — but it costs a point.</li>
       <li><span class="how-num">4</span>Score 3 points on clue 1, 2 on clue 2, 1 on clue 3.</li>
-      <li><span class="how-num">5</span>One X per day. Same question for everyone.</li>
+      <li><span class="how-num">5</span>Daily X: one question per day, same for everyone. Random X: play anytime.</li>
     </ul>
     <div class="how-score-legend">
       <div class="score-demo"><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span> Got it first try</div>
@@ -61,11 +53,94 @@
   </div>
 </div>
 
+<!-- ─── SPLASH SCREEN ─── -->
+<div id="splash" class="screen active">
+  <header class="top-bar">
+    <img src="logo.png" alt="Xaily" class="top-logo">
+    <div class="top-bar-right">
+      <button class="user-pill" id="user-pill-btn">Set name</button>
+      <button class="icon-btn" id="how-btn" aria-label="How to play">?</button>
+    </div>
+  </header>
+
+  <div class="splash-body">
+    <img src="logo.png" alt="Xaily" class="splash-logo">
+    <h1>Xaily</h1>
+    <p class="splash-tagline">One X. One day. Pure deduction.</p>
+
+    <div class="about-section">
+      <p>Xaily is a daily deduction game. A concept is hidden behind three clues — revealed one by one. Read carefully, reason deeply, and identify X in as few hints as possible. The fewer clues you need, the higher your score.</p>
+    </div>
+
+    <!-- Daily X section -->
+    <div class="mode-card" id="daily-mode-card">
+      <div class="mode-card-header">
+        <div class="mode-card-label">Daily X</div>
+        <div id="splash-streak" class="streak-pill" hidden>
+          <span class="streak-fire">🔥</span>
+          <span id="splash-streak-count"></span>
+          <span class="streak-label">day streak</span>
+        </div>
+      </div>
+      <p class="mode-card-desc">One question per day, same for everyone worldwide.</p>
+      <button id="play-btn" class="primary-btn mode-play-btn">Play Today's X</button>
+      <div id="already-played" class="already-played" hidden>
+        <div class="result-summary-mini" id="mini-result"></div>
+        <p class="already-text">You've played today. Come back tomorrow.</p>
+        <button id="review-btn" class="ghost-btn">Review today's answer</button>
+      </div>
+    </div>
+
+    <!-- Random X section -->
+    <div class="mode-card mode-card-secondary">
+      <div class="mode-card-header">
+        <div class="mode-card-label">Random X</div>
+        <span class="mode-anytime-badge">Anytime</span>
+      </div>
+      <p class="mode-card-desc">Pick a random concept and play as many times as you like.</p>
+      <button id="random-btn" class="ghost-btn mode-play-btn">Play Random X</button>
+    </div>
+
+    <button id="leaderboard-btn" class="leaderboard-link">View leaderboard →</button>
+  </div>
+</div>
+
+<!-- ─── LEADERBOARD SCREEN ─── -->
+<div id="leaderboard" class="screen">
+  <header class="top-bar">
+    <img src="logo.png" alt="Xaily" class="top-logo" id="lb-logo">
+    <button class="icon-btn" id="lb-back" aria-label="Back">←</button>
+  </header>
+
+  <div class="lb-body">
+    <div class="lb-header">
+      <h2>Leaderboard</h2>
+      <p class="lb-subtitle">Your scores across all games</p>
+    </div>
+
+    <div class="lb-tabs">
+      <button class="lb-tab active" data-tab="daily">Daily X</button>
+      <button class="lb-tab" data-tab="random">Random X</button>
+    </div>
+
+    <div id="lb-stats" class="lb-stats">
+      <!-- stats injected here -->
+    </div>
+
+    <div id="lb-list" class="lb-list">
+      <!-- entries injected here -->
+    </div>
+
+    <p class="lb-note">Scores are saved on this device. A global leaderboard is coming soon.</p>
+  </div>
+</div>
+
 <!-- ─── GAME SCREEN ─── -->
 <div id="game" class="screen">
   <header class="top-bar">
     <img src="logo.png" alt="Xaily" class="top-logo" id="game-logo">
     <div class="game-top-right">
+      <span id="game-mode-badge" class="game-mode-badge">Daily</span>
       <div class="score-dots" id="score-dots">
         <span class="dot filled" id="dot-1"></span>
         <span class="dot filled" id="dot-2"></span>
@@ -121,6 +196,8 @@
   </header>
 
   <div class="result-body">
+    <div class="result-mode-badge" id="result-mode-badge">Daily X</div>
+
     <div class="result-icon" id="result-icon"></div>
 
     <div class="result-score-dots" id="result-dots">
@@ -148,7 +225,10 @@
       <span id="streak-result-text"></span>
     </div>
 
-    <p class="next-day-text">A new X arrives at midnight.</p>
+    <!-- Random mode: play again button -->
+    <button id="play-another-btn" class="ghost-btn play-another-btn" hidden>Play another Random X</button>
+
+    <p class="next-day-text" id="next-day-text">A new X arrives at midnight.</p>
   </div>
 </div>
 
@@ -156,21 +236,194 @@
 <script src="questions.js"></script>
 <script>
 // ──────────────────────────────────────────────
-// STATE
+// CONSTANTS & KEYS
 // ──────────────────────────────────────────────
 const STATE_KEY = 'xaily-state-v1';
+const USER_KEY  = 'xaily-user-v1';
+const LB_KEY    = 'xaily-lb-v1';
 
+// ──────────────────────────────────────────────
+// STATE HELPERS
+// ──────────────────────────────────────────────
 function loadState() {
   try { return JSON.parse(localStorage.getItem(STATE_KEY)) || {}; }
   catch { return {}; }
 }
+function saveState(s) { localStorage.setItem(STATE_KEY, JSON.stringify(s)); }
+function todayStr() { return new Date().toISOString().slice(0, 10); }
 
-function saveState(s) {
-  localStorage.setItem(STATE_KEY, JSON.stringify(s));
+// ──────────────────────────────────────────────
+// USER / LOGIN
+// ──────────────────────────────────────────────
+function loadUser() {
+  try { return JSON.parse(localStorage.getItem(USER_KEY)) || {}; }
+  catch { return {}; }
+}
+function saveUser(u) { localStorage.setItem(USER_KEY, JSON.stringify(u)); }
+
+function getUsername() {
+  return loadUser().username || null;
 }
 
-function todayStr() {
-  return new Date().toISOString().slice(0, 10);
+function renderUserPill() {
+  const name = getUsername();
+  const btn = document.getElementById('user-pill-btn');
+  if (name) {
+    btn.textContent = name;
+    btn.classList.add('has-name');
+  } else {
+    btn.textContent = 'Set name';
+    btn.classList.remove('has-name');
+  }
+}
+
+function openLogin() {
+  const modal = document.getElementById('login-modal');
+  const input = document.getElementById('username-input');
+  input.value = getUsername() || '';
+  modal.hidden = false;
+  setTimeout(() => input.focus(), 100);
+}
+
+function closeLogin() {
+  document.getElementById('login-modal').hidden = true;
+}
+
+function saveUsername() {
+  const val = document.getElementById('username-input').value.trim();
+  if (val) {
+    const u = loadUser();
+    u.username = val;
+    saveUser(u);
+  }
+  closeLogin();
+  renderUserPill();
+}
+
+// ──────────────────────────────────────────────
+// LEADERBOARD DATA
+// ──────────────────────────────────────────────
+function loadLB() {
+  try { return JSON.parse(localStorage.getItem(LB_KEY)) || { daily: [], random: [] }; }
+  catch { return { daily: [], random: [] }; }
+}
+function saveLB(lb) { localStorage.setItem(LB_KEY, JSON.stringify(lb)); }
+
+function recordScore(mode, score, questionId) {
+  const lb = loadLB();
+  const entry = {
+    date: todayStr(),
+    timestamp: Date.now(),
+    score,
+    questionId,
+    username: getUsername() || 'Anonymous'
+  };
+  lb[mode] = lb[mode] || [];
+  lb[mode].unshift(entry);
+  // Keep last 100 entries
+  if (lb[mode].length > 100) lb[mode] = lb[mode].slice(0, 100);
+  saveLB(lb);
+}
+
+// ──────────────────────────────────────────────
+// LEADERBOARD RENDER
+// ──────────────────────────────────────────────
+let lbTab = 'daily';
+
+function renderLeaderboard() {
+  const lb = loadLB();
+  const entries = lb[lbTab] || [];
+
+  // Stats
+  const statsEl = document.getElementById('lb-stats');
+  if (entries.length === 0) {
+    statsEl.innerHTML = '<p class="lb-empty">No games played yet in this mode.</p>';
+    document.getElementById('lb-list').innerHTML = '';
+    return;
+  }
+
+  const total = entries.length;
+  const totalScore = entries.reduce((s, e) => s + e.score, 0);
+  const avg = (totalScore / total).toFixed(1);
+  const best = Math.max(...entries.map(e => e.score));
+
+  let bestStreak = 0;
+  if (lbTab === 'daily') {
+    // Calculate best streak from daily entries
+    const sorted = [...entries].sort((a, b) => a.date.localeCompare(b.date));
+    let cur = 0, max = 0;
+    for (let i = 0; i < sorted.length; i++) {
+      if (sorted[i].score > 0) {
+        if (i === 0) { cur = 1; }
+        else {
+          const prev = new Date(sorted[i - 1].date);
+          const curr = new Date(sorted[i].date);
+          const diff = (curr - prev) / 86400000;
+          cur = diff === 1 ? cur + 1 : 1;
+        }
+        max = Math.max(max, cur);
+      } else {
+        cur = 0;
+      }
+    }
+    bestStreak = max;
+  }
+
+  statsEl.innerHTML = `
+    <div class="lb-stat-row">
+      <div class="lb-stat">
+        <div class="lb-stat-val">${total}</div>
+        <div class="lb-stat-label">Games</div>
+      </div>
+      <div class="lb-stat">
+        <div class="lb-stat-val">${avg}</div>
+        <div class="lb-stat-label">Avg score</div>
+      </div>
+      <div class="lb-stat">
+        <div class="lb-stat-val">${best}/3</div>
+        <div class="lb-stat-label">Best</div>
+      </div>
+      ${lbTab === 'daily' ? `<div class="lb-stat">
+        <div class="lb-stat-val">${bestStreak}</div>
+        <div class="lb-stat-label">Best streak</div>
+      </div>` : ''}
+    </div>
+  `;
+
+  // Recent games list
+  const listEl = document.getElementById('lb-list');
+  const icons = { 3: '✦', 2: '◈', 1: '◇', 0: '○' };
+  const shown = entries.slice(0, 20);
+  listEl.innerHTML = shown.map((e, i) => `
+    <div class="lb-entry">
+      <div class="lb-entry-icon ${e.score > 0 ? 'lb-won' : 'lb-lost'}">${icons[e.score] || '○'}</div>
+      <div class="lb-entry-info">
+        <div class="lb-entry-date">${formatDate(e.date)}</div>
+        <div class="lb-entry-dots">${scoreDotStr(e.score)}</div>
+      </div>
+      <div class="lb-entry-score">${e.score}/3</div>
+    </div>
+  `).join('');
+}
+
+function formatDate(dateStr) {
+  const d = new Date(dateStr + 'T00:00:00');
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function scoreDotStr(score) {
+  let html = '';
+  for (let i = 3; i >= 1; i--) {
+    html += `<span class="dot ${i <= score ? 'filled' : 'empty'}"></span>`;
+  }
+  return html;
+}
+
+function showLeaderboard() {
+  lbTab = 'daily';
+  document.querySelectorAll('.lb-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === lbTab));
+  renderLeaderboard();
+  showScreen('leaderboard');
 }
 
 // ──────────────────────────────────────────────
@@ -183,6 +436,12 @@ function getTodayQuestion() {
   const days = Math.floor((today - epoch.getTime()) / 86400000);
   const idx = ((days % QUESTIONS.length) + QUESTIONS.length) % QUESTIONS.length;
   return QUESTIONS[idx];
+}
+
+function getRandomQuestion() {
+  const daily = getTodayQuestion();
+  const pool = QUESTIONS.filter(q => q.id !== daily.id);
+  return pool[Math.floor(Math.random() * pool.length)];
 }
 
 // ──────────────────────────────────────────────
@@ -207,9 +466,10 @@ function checkAnswer(input, question) {
 // ──────────────────────────────────────────────
 // GAME STATE
 // ──────────────────────────────────────────────
-let question = null;
-let cluesRevealed = 1;  // 1, 2, or 3
-let gameOver = false;
+let question    = null;
+let cluesRevealed = 1;
+let gameOver    = false;
+let gameMode    = 'daily'; // 'daily' | 'random'
 
 // ──────────────────────────────────────────────
 // SCREEN ROUTING
@@ -224,8 +484,7 @@ function showScreen(id) {
 // STREAK LOGIC
 // ──────────────────────────────────────────────
 function getStreak() {
-  const s = loadState();
-  return s.streak || 0;
+  return loadState().streak || 0;
 }
 
 function updateStreak(won) {
@@ -251,23 +510,20 @@ function updateStreak(won) {
 // RENDER SPLASH
 // ──────────────────────────────────────────────
 function renderSplash() {
+  renderUserPill();
   const s = loadState();
   const streak = s.streak || 0;
 
-  // Show streak
   if (streak > 0) {
     document.getElementById('splash-streak').hidden = false;
     document.getElementById('splash-streak-count').textContent = streak;
   }
 
-  // Check if already played today
   if (s.lastPlayed === todayStr() && s.todayResult) {
     document.getElementById('play-btn').hidden = true;
     document.getElementById('already-played').hidden = false;
-
     const r = s.todayResult;
-    const mini = document.getElementById('mini-result');
-    mini.innerHTML = scoreDots(r.score, true);
+    document.getElementById('mini-result').innerHTML = scoreDots(r.score, true);
   }
 }
 
@@ -283,30 +539,35 @@ function scoreDots(score, mini) {
 // ──────────────────────────────────────────────
 // START GAME
 // ──────────────────────────────────────────────
-function startGame() {
-  question = getTodayQuestion();
+function initGame(q, mode) {
+  question      = q;
+  gameMode      = mode;
   cluesRevealed = 1;
-  gameOver = false;
+  gameOver      = false;
 
-  // Category & counter
   document.getElementById('category-badge').textContent = question.category;
+  document.getElementById('game-mode-badge').textContent = mode === 'daily' ? 'Daily' : 'Random';
+  document.getElementById('game-mode-badge').className = 'game-mode-badge ' + (mode === 'daily' ? 'badge-daily' : 'badge-random');
   updateClueCounter();
   updateScoreDots();
   updateRevealBtn();
 
-  // Show streak in header
-  const streak = getStreak();
-  if (streak > 0) {
-    document.getElementById('game-streak').hidden = false;
-    document.getElementById('game-streak-count').textContent = streak;
+  if (mode === 'daily') {
+    const streak = getStreak();
+    if (streak > 0) {
+      document.getElementById('game-streak').hidden = false;
+      document.getElementById('game-streak-count').textContent = streak;
+    } else {
+      document.getElementById('game-streak').hidden = true;
+    }
+  } else {
+    document.getElementById('game-streak').hidden = true;
   }
 
-  // Render first clue
   const area = document.getElementById('clues-area');
   area.innerHTML = '';
   appendClue(question.clues[0], 1);
 
-  // Reset input
   document.getElementById('answer-input').value = '';
   document.getElementById('feedback').hidden = true;
   document.getElementById('give-up-row').hidden = true;
@@ -316,6 +577,14 @@ function startGame() {
   setTimeout(() => document.getElementById('answer-input').focus(), 300);
 }
 
+function startGame() {
+  initGame(getTodayQuestion(), 'daily');
+}
+
+function startRandomGame() {
+  initGame(getRandomQuestion(), 'random');
+}
+
 function appendClue(text, num) {
   const area = document.getElementById('clues-area');
   const card = document.createElement('div');
@@ -323,7 +592,6 @@ function appendClue(text, num) {
   card.setAttribute('data-clue', num);
   card.innerHTML = `<span class="clue-num-label">Clue ${num}</span><p class="clue-text">${text}</p>`;
   area.appendChild(card);
-  // animate in
   requestAnimationFrame(() => card.classList.add('clue-visible'));
 }
 
@@ -332,7 +600,7 @@ function updateClueCounter() {
 }
 
 function updateScoreDots() {
-  const score = 4 - cluesRevealed; // 3, 2, or 1
+  const score = 4 - cluesRevealed;
   document.getElementById('dot-1').className = 'dot ' + (score >= 1 ? 'filled' : 'empty');
   document.getElementById('dot-2').className = 'dot ' + (score >= 2 ? 'filled' : 'empty');
   document.getElementById('dot-3').className = 'dot ' + (score >= 3 ? 'filled' : 'empty');
@@ -340,9 +608,7 @@ function updateScoreDots() {
 
 function updateRevealBtn() {
   const btn = document.getElementById('reveal-btn');
-  const next = cluesRevealed + 1;
-  document.getElementById('next-clue-num').textContent = next;
-
+  document.getElementById('next-clue-num').textContent = cluesRevealed + 1;
   if (cluesRevealed >= 3) {
     btn.hidden = true;
     document.getElementById('give-up-row').hidden = false;
@@ -364,10 +630,8 @@ function submitAnswer() {
   const feedback = document.getElementById('feedback');
 
   if (checkAnswer(val, question)) {
-    const score = 4 - cluesRevealed; // 3, 2, or 1
-    handleWin(score);
+    handleWin(4 - cluesRevealed);
   } else {
-    // Wrong answer feedback
     feedback.hidden = false;
     feedback.className = 'feedback wrong';
     feedback.textContent = getWrongFeedback();
@@ -394,25 +658,30 @@ function getWrongFeedback() {
 // ──────────────────────────────────────────────
 function handleWin(score) {
   gameOver = true;
-  const streak = updateStreak(true);
-  saveResult(score);
+  let streak = getStreak();
+  if (gameMode === 'daily') {
+    streak = updateStreak(true);
+    saveDailyResult(score);
+  }
+  recordScore(gameMode, score, question.id);
   showResult(true, score, streak);
 }
 
 function handleGiveUp() {
   gameOver = true;
-  updateStreak(false);
-  saveResult(0);
-  showResult(false, 0, getStreak());
+  let streak = getStreak();
+  if (gameMode === 'daily') {
+    updateStreak(false);
+    saveDailyResult(0);
+  }
+  recordScore(gameMode, 0, question.id);
+  showResult(false, 0, streak);
 }
 
-function saveResult(score) {
+function saveDailyResult(score) {
   const s = loadState();
   s.lastPlayed = todayStr();
   s.todayResult = { score, questionId: question.id };
-  if (score === 0) {
-    // streak broken if giving up — handled separately
-  }
   saveState(s);
 }
 
@@ -426,11 +695,7 @@ function revealNextClue() {
   updateClueCounter();
   updateScoreDots();
   updateRevealBtn();
-
-  // Clear wrong feedback
-  const feedback = document.getElementById('feedback');
-  feedback.hidden = true;
-
+  document.getElementById('feedback').hidden = true;
   document.getElementById('answer-input').value = '';
   document.getElementById('answer-input').focus();
 }
@@ -439,7 +704,7 @@ function revealNextClue() {
 // SHOW RESULT
 // ──────────────────────────────────────────────
 function showResult(won, score, streak) {
-  const icons = { 3: '✦', 2: '◈', 1: '◇', 0: '○' };
+  const icons  = { 3: '✦', 2: '◈', 1: '◇', 0: '○' };
   const titles = {
     3: 'First light.',
     2: 'Sharp mind.',
@@ -450,7 +715,7 @@ function showResult(won, score, streak) {
     3: 'Identified on the first clue.',
     2: 'Identified on the second clue.',
     1: 'Identified on the third clue.',
-    0: 'The answer eluded you today.'
+    0: 'The answer eluded you.'
   };
 
   document.getElementById('result-icon').textContent = icons[score] || '○';
@@ -458,22 +723,37 @@ function showResult(won, score, streak) {
   document.getElementById('result-title').textContent = titles[score];
   document.getElementById('result-subtitle').textContent = subtitles[score];
 
-  // Score dots
+  const modeBadge = document.getElementById('result-mode-badge');
+  modeBadge.textContent = gameMode === 'daily' ? 'Daily X' : 'Random X';
+  modeBadge.className = 'result-mode-badge ' + (gameMode === 'daily' ? 'badge-daily' : 'badge-random');
+
   for (let i = 1; i <= 3; i++) {
     document.getElementById('rdot-' + i).className = 'dot ' + (i <= score ? 'filled' : 'empty');
   }
 
-  // Answer card
   const displayAnswer = question.answer.replace(/\b\w/g, c => c.toUpperCase());
   document.getElementById('answer-text').textContent = displayAnswer;
   document.getElementById('answer-explanation').textContent = question.explanation;
 
-  // Streak
-  if (won && streak > 0) {
-    const el = document.getElementById('streak-result');
-    el.hidden = false;
+  // Streak (daily only)
+  const streakEl = document.getElementById('streak-result');
+  if (gameMode === 'daily' && won && streak > 0) {
+    streakEl.hidden = false;
     document.getElementById('streak-result-text').textContent =
       streak === 1 ? 'Streak started!' : `${streak} day streak!`;
+  } else {
+    streakEl.hidden = true;
+  }
+
+  // Mode-specific footer
+  const nextDayText = document.getElementById('next-day-text');
+  const playAnotherBtn = document.getElementById('play-another-btn');
+  if (gameMode === 'daily') {
+    nextDayText.hidden = false;
+    playAnotherBtn.hidden = true;
+  } else {
+    nextDayText.hidden = true;
+    playAnotherBtn.hidden = false;
   }
 
   showScreen('result');
@@ -483,11 +763,10 @@ function showResult(won, score, streak) {
 // SHARE
 // ──────────────────────────────────────────────
 function buildShareText(score) {
-  const dots = ['○', '◇', '◈', '✦'];
-  const dot = (score >= 1 ? '●' : '○');
+  const modeLabel = gameMode === 'daily' ? 'Daily X' : 'Random X';
   const lines = [
-    `Xaily — Identify X`,
-    `Score: ${['✕', '◇', '◈', '✦'][score]}  (${score}/3)`,
+    `Xaily — ${modeLabel}`,
+    `Score: ${['○', '◇', '◈', '✦'][score]}  (${score}/3)`,
     '',
     `${score >= 3 ? '●' : '○'}${score >= 2 ? '●' : '○'}${score >= 1 ? '●' : '○'}`,
     '',
@@ -498,10 +777,9 @@ function buildShareText(score) {
 
 function shareResult() {
   const s = loadState();
-  const score = s.todayResult ? s.todayResult.score : 0;
+  const score = gameMode === 'daily' && s.todayResult ? s.todayResult.score : (question ? (4 - cluesRevealed) : 0);
   const text = buildShareText(score);
 
-  const btn = document.getElementById('share-btn');
   const toast = document.getElementById('share-toast');
 
   if (navigator.share) {
@@ -511,7 +789,6 @@ function shareResult() {
       toast.hidden = false;
       setTimeout(() => toast.hidden = true, 2200);
     }).catch(() => {
-      // fallback: select a temp textarea
       const ta = document.createElement('textarea');
       ta.value = text;
       document.body.appendChild(ta);
@@ -527,12 +804,8 @@ function shareResult() {
 // ──────────────────────────────────────────────
 // HOW TO PLAY MODAL
 // ──────────────────────────────────────────────
-function openHow() {
-  document.getElementById('how-modal').hidden = false;
-}
-function closeHow() {
-  document.getElementById('how-modal').hidden = true;
-}
+function openHow() { document.getElementById('how-modal').hidden = false; }
+function closeHow() { document.getElementById('how-modal').hidden = true; }
 
 // ──────────────────────────────────────────────
 // KEYBOARD
@@ -540,35 +813,68 @@ function closeHow() {
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && !gameOver) {
     const active = document.querySelector('.screen.active');
-    if (active && active.id === 'game') {
-      submitAnswer();
-    }
+    if (active && active.id === 'game') submitAnswer();
   }
-  if (e.key === 'Escape') closeHow();
+  if (e.key === 'Escape') {
+    closeHow();
+    closeLogin();
+  }
 });
 
 // ──────────────────────────────────────────────
 // EVENTS
 // ──────────────────────────────────────────────
+// Splash
 document.getElementById('play-btn').addEventListener('click', startGame);
+document.getElementById('random-btn').addEventListener('click', startRandomGame);
 document.getElementById('review-btn').addEventListener('click', () => {
   const s = loadState();
   question = getTodayQuestion();
+  gameMode = 'daily';
   const score = s.todayResult ? s.todayResult.score : 0;
-  const streak = s.streak || 0;
-  showResult(score > 0, score, streak);
+  showResult(score > 0, score, s.streak || 0);
 });
+document.getElementById('leaderboard-btn').addEventListener('click', showLeaderboard);
+
+// Login
+document.getElementById('user-pill-btn').addEventListener('click', openLogin);
+document.getElementById('save-username-btn').addEventListener('click', saveUsername);
+document.getElementById('skip-login-btn').addEventListener('click', closeLogin);
+document.getElementById('username-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') saveUsername();
+});
+document.getElementById('login-modal').addEventListener('click', e => {
+  if (e.target.id === 'login-modal') closeLogin();
+});
+
+// Leaderboard
+document.getElementById('lb-back').addEventListener('click', () => showScreen('splash'));
+document.getElementById('lb-logo').addEventListener('click', () => showScreen('splash'));
+document.querySelectorAll('.lb-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    lbTab = tab.dataset.tab;
+    document.querySelectorAll('.lb-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === lbTab));
+    renderLeaderboard();
+  });
+});
+
+// Game
 document.getElementById('submit-btn').addEventListener('click', submitAnswer);
 document.getElementById('reveal-btn').addEventListener('click', revealNextClue);
 document.getElementById('giveup-btn').addEventListener('click', handleGiveUp);
+document.getElementById('game-logo').addEventListener('click', () => showScreen('splash'));
+
+// Result
 document.getElementById('share-btn').addEventListener('click', shareResult);
-document.getElementById('how-btn').addEventListener('click', openHow);
+document.getElementById('play-another-btn').addEventListener('click', startRandomGame);
 document.getElementById('result-how-btn').addEventListener('click', openHow);
+
+// How modal
+document.getElementById('how-btn').addEventListener('click', openHow);
 document.getElementById('close-how').addEventListener('click', closeHow);
 document.getElementById('how-modal').addEventListener('click', e => {
   if (e.target.id === 'how-modal') closeHow();
 });
-document.getElementById('game-logo').addEventListener('click', () => showScreen('splash'));
 
 // ──────────────────────────────────────────────
 // INIT
